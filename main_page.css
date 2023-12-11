@@ -95,6 +95,10 @@ main{
     background-size: cover;
     background-repeat: no-repeat;
 }
+.state_block img:hover{
+    transform: scale(1.1);
+}
+
 #popular_state a{
     text-decoration: none;
     color:white;

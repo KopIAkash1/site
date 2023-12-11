@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинопедия | Fandom</title>
+    <link rel="stylesheet" href="main_page.css"></linkrel>
+</head>
+<body>
+    <script>
+        2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+	
+////////////////////////
+///////// Настройки
+////////////////////////
+ 
+// количество снежинок, которое будет на экране одновременно.
+let snowmax=40
+ 
+// Цвета для снежинок. Для каждой конкретной снежинки цвет выбирается случайно из этого массива.
+let snowcolor=new Array("#b9dff5","#7fc7ff","#7fb1ff","#7fc7ff","#b9dff5")
+ 
+// Шрифт для снежинок
+let snowtype=new Array("Times")
+ 
+// Символ (*) и есть снежинка, в место нее можно вставить любой другой символ.
+let snowletter="&#10052;"
+ 
+// Скорость движения снежинок (от 0.3 до 2)
+let sinkspeed=0.4
+ 
+// Максимальный размер для снежинок
+let snowmaxsize=40
+ 
+// Минимальный размер для снежинок
+let snowminsize=10
+ 
+// Зона для снежинок
+// 1 для всей страницы, 2 в левой части страницы
+// 3 в центральной части, 4 в правой части страницы
+let snowingzone=1
+ 
+////////////////////////
+///////// Конец настроек
+////////////////////////
+ 
+let snow=new Array();
+let marginbottom;
+let marginright;
+let timer;
+let i_snow=0;
+let x_mv=new Array();
+let crds=new Array();
+let lftrght=new Array();
+function randommaker(range) {
+    rand=Math.floor(range*Math.random());
+    return rand;
+}
+function initsnow() {
+    marginbottom = document.documentElement.clientHeight+50
+    marginright = document.body.clientWidth-15
+    let snowsizerange=snowmaxsize-snowminsize
+    for (i=0;i<=snowmax;i++) {
+        crds[i] = 0;
+        lftrght[i] = Math.random()*15;
+        x_mv[i] = 0.03 + Math.random()/10;
+        snow[i]=document.getElementById("s"+i)
+        snow[i].style.fontFamily=snowtype[randommaker(snowtype.length)]
+        snow[i].size=randommaker(snowsizerange)+snowminsize
+        snow[i].style.fontSize=snow[i].size+'px';
+        snow[i].style.color=snowcolor[randommaker(snowcolor.length)]
+        snow[i].style.zIndex=1000
+        snow[i].sink=sinkspeed*snow[i].size/5
+        if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+        if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+        if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+        if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+        snow[i].posy=randommaker(2*marginbottom-marginbottom-2*snow[i].size)
+        snow[i].style.left=snow[i].posx+'px';
+        snow[i].style.top=snow[i].posy+'px';
+    }
+    movesnow()
+}
+function movesnow() {
+    for (i=0;i<=snowmax;i++) {
+        crds[i] += x_mv[i];
+        snow[i].posy+=snow[i].sink
+        snow[i].style.left=snow[i].posx+lftrght[i]*Math.sin(crds[i])+'px';
+        snow[i].style.top=snow[i].posy+'px';
+        
+        if (snow[i].posy>=marginbottom-2*snow[i].size || parseInt(snow[i].style.left)>(marginright-3*lftrght[i])){
+            if (snowingzone==1) {snow[i].posx=randommaker(marginright-snow[i].size)}
+            if (snowingzone==2) {snow[i].posx=randommaker(marginright/2-snow[i].size)}
+            if (snowingzone==3) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/4}
+            if (snowingzone==4) {snow[i].posx=randommaker(marginright/2-snow[i].size)+marginright/2}
+            snow[i].posy=0
+        }
+    }
+    let timer=setTimeout("movesnow()",50)
+}
+ 
+for (i=0;i<=snowmax;i++) {
+    document.body.insertAdjacentHTML("beforeend", "<span id='s"+i+"' style='pointer-events:none;user-select:none;position:fixed;top:-"+snowmaxsize+"'>"+snowletter+"</span>")
+}
+window.onload=initsnow    
+    </script>
+    <header>
+        <div class="header_back">
+            <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" id="wds-brand-fandom-logomark" viewBox="0 0 174 242"><path fill="#FA005A" d="M166.935 118.154L50.108 1.273C49.504.67 48.735.259 47.898.093c-.837-.166-1.705-.08-2.493.247-.788.327-1.461.88-1.935 1.59-.474.71-.727 1.546-.727 2.4v98.276L7.365 67.22c-.604-.604-1.373-1.014-2.21-1.18-.837-.166-1.704-.08-2.492.247-.789.327-1.462.88-1.936 1.59-.474.71-.727 1.545-.727 2.4v101.487c-.003 3.172.62 6.312 1.833 9.242 1.214 2.929 2.993 5.59 5.237 7.83l46.037 46.099c4.528 4.53 10.666 7.078 17.068 7.085h33.68c6.4-.003 12.537-2.547 17.063-7.075l46.027-46.099c2.239-2.242 4.014-4.904 5.225-7.833 1.21-2.93 1.832-6.069 1.83-9.239v-36.533c.002-3.173-.621-6.315-1.834-9.247-1.212-2.932-2.989-5.596-5.231-7.84z"/><path fill="#FFC500" d="M131.297 160.901c.001 1.915-.757 3.754-2.108 5.111l-37.11 37.3c-.672.677-1.472 1.215-2.354 1.582-.88.366-1.826.555-2.78.555-.954 0-1.9-.189-2.78-.555-.882-.367-1.682-.905-2.355-1.582l-36.99-37.3c-1.352-1.351-2.114-3.184-2.117-5.096v-14.191c0-.951.19-1.892.554-2.77.366-.878.9-1.675 1.574-2.346l13.317-13.328c.672-.675 1.47-1.209 2.35-1.574.879-.365 1.82-.553 2.772-.553.952 0 1.894.188 2.773.553.879.365 1.677.899 2.35 1.574l18.624 18.645 18.596-18.65c.672-.675 1.47-1.209 2.349-1.574.879-.365 1.821-.553 2.773-.553.951 0 1.893.188 2.772.553.879.365 1.677.899 2.349 1.574l13.318 13.328c.673.671 1.207 1.469 1.571 2.347.364.877.552 1.819.552 2.769v14.181z"/></svg></a>
+            FANDOM
+            <ul>
+                <li><a href="heroes.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="wds-icon">
+                    <path d="M4.62 3.003c-1.08.022-1.182.03-1.481.122-.496.151-.83.359-1.243.771-.4.4-.6.717-.771 1.217l-.105.307v13.16l.105.307c.171.5.371.817.771 1.217.4.4.717.6 1.217.771l.307.105h17.16l.307-.105c.5-.171.817-.371 1.217-.771.4-.4.6-.717.771-1.217l.105-.307V5.42l-.105-.307c-.171-.5-.371-.817-.771-1.217-.61-.61-1.158-.846-2.044-.882-.712-.028-14.092-.038-15.44-.011M7.08 6.5 8.58 8H3V6.95c0-.632.018-1.112.044-1.206a1.03 1.03 0 0 1 .682-.698c.074-.021.521-.04.994-.042L5.58 5l1.5 1.5m7 0 1.5 1.5h-4.16l-1.5-1.5L8.42 5h4.16l1.5 1.5m6.336-1.403c.199.099.388.288.487.487.07.141.078.264.089 1.286L21.005 8H18.42l-1.5-1.501-1.5-1.501 2.42.011c2.301.01 2.428.015 2.576.088m-9.336 4.929a865.84 865.84 0 0 1 6.84.002c.077.004.802-.002 1.611-.013l1.47-.02-.01 4.133c-.011 4.014-.013 4.137-.089 4.29a1.418 1.418 0 0 1-.232.307c-.306.297.399.275-8.67.275-9.069 0-8.364.022-8.67-.275a1.418 1.418 0 0 1-.232-.307c-.076-.153-.078-.276-.089-4.289l-.01-4.131 3.97.017c2.184.009 4.034.014 4.111.011"></path>
+                    </svg>
+                    Кино герои
+                    </a>
+                </li>
+                <li>
+                    <a href="forum_main.html">
+                        <svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M96,104h64a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16Z"/>
+                              <path d="M96,136h64a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16Z"/>
+                              <path d="M128,152H96a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16Z"/>
+                              <path d="M224,156.68652V48a16.01833,16.01833,0,0,0-16-16H48A16.01833,16.01833,0,0,0,32,48V208a16.01833,16.01833,0,0,0,16,16H156.68652A15.89354,15.89354,0,0,0,168,219.31348L219.31348,168a15.97516,15.97516,0,0,0,3.31891-4.854c.00628-.01465.01416-.02881.02038-.04346A15.94517,15.94517,0,0,0,224,156.68652ZM48,48H208V151.99219H160a7.99977,7.99977,0,0,0-8,8V208H48ZM196.69446,167.99219,168,196.68652V167.99219Z"/>
+                          </svg>
+                        Форум
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="main_page">
+            <div class="main_content">
+                <h1>Лента новостей</h1>
+                <div class="block">
+                    <h3>Кинопедия - это то, что нас объединяет!</h3>
+                    <br>Добро пожаловать на русскоязычное сообщество, посвящённое киногероям! и всему, что с ними связано
+                    Цель нашего сообщества — создание большой и информативной энциклопедии по всем известным миру киногероям,
+                     а также предоставление последних новостей о них. Присоединяйтесь к нам и внесите свой вклад в развитие Кинопедии! </br>
+                </div>
+                <div class="block" id = "popular_state">
+                    <h3>Популярная статья</h3>
+                    <a href="state1_Iron_Man.html">
+                        <div class="state_block">
+                            <h2>Железный человек (КВМ)</h2>
+                            <img src="imges/Robert_Downey_Jr._as_Tony_Stark_in_Avengers_Infinity_War.jpg">
+                            <h3>Всего посещений: 1203, Посещений сегодня: 1</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="block" id="FeedBack">
+                    <h3>Связаться с нами:</h3>
+                    <div class="feedbackVar">
+                        <ul>
+                            <li><a href = "mailto: rossia1234556@yandex.ru">Почта</a></li>
+                            <li><a href = "tel:+78005553535">Телефон</a></li>
+                            <li><a href = "https://steamcommunity.com/id/kopiAkash1/">Стим</a></li>
+                            <li><a href="discordapp.com/users/1017790086101864588">Дискорд</a></li>
+                            <li><a href="https://t.me/Kopi150">Телеграмм</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

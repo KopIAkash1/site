@@ -1,0 +1,134 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url("imges/background.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+/* HEADER */
+header{
+    position: fixed;
+    height: 100vh;
+    background-color: white;
+    width: 4%;
+}
+.header_back{
+    font-size:13px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header_back a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header_back a svg{
+    width: 60%;
+}
+.header_back ul{
+    padding-top:1vh;
+}
+.header_back ul li a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color:black;
+    text-align: center;
+    font-weight: bold;
+}
+/* ---------------------------------------------------- */
+/* main_page */
+main{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.main_page{
+    border-radius: 2px;
+    margin-left: 20%;
+    height: 100vh;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.7);
+    overflow:auto;
+}
+.main_page::before{
+    content:"";
+    position: absolute;
+    top:0;
+    left:0;
+    height: 100vh;
+    width: 60%;
+    margin-left: 20%;
+    z-index:-1;
+    background-image: url("imges/fon.webp");
+    opacity: 0.4;
+}
+.main_content h1{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    font-family: Ponter_X;
+}
+.block{
+    margin: 1vh;
+    border-style: groove;
+    border-radius: 1px;
+    border-width: 5px;
+    background-image: url("imges/kino.jpg");
+    background-repeat: repeat;
+    color:black;
+    font-size:2.5vh;
+    text-align: center;
+    font-weight: bold;
+}
+#popular_state{
+    background-image: url("imges/Арт-обложка_Саги_Бесконечности_КВМ.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#popular_state a{
+    text-decoration: none;
+    color:white;
+    font-family: Ponter_X;
+    -webkit-text-stroke: 1px #000000;
+}
+.feedbackVar ul{
+    list-style: none;
+}
+
+@media only screen and (max-width:2048px){
+    .feedbackVar ul{
+        list-style: none;
+        columns: 3;
+    }
+    .state_block img{
+        border-radius: 10px;
+        width: 20vw;
+    }
+}
+@media (max-width: 500px){
+    .main_page{
+        width: 70%;
+    }
+    .feedbackVar ul{
+        list-style: none;
+        columns: 1;
+    }
+    .state_block img{
+        border-radius: 10px;
+        width: 50vw;
+    }
+}
+@font-face {
+    font-family: Ponter_X;
+    src: url("fonts/Ponter\ X.ttf");
+}
